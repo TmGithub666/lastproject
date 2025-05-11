@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>东菱咖啡机 - 品质生活从一杯好咖啡开始</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #6F4E37; /* 咖啡色 */
+            --secondary-color: #F5F5DC; /* 米色 */
+            --accent-color: #D2B48C; /* 浅木色 */
+            --text-color: #333;
+            --light-text: #fff;
+            --shadow: 0 4px 8px rgba(0,0,0,0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            color: var(--text-color);
+            line-height: 1.6;
+            background-color: var(--secondary-color);
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* 导航栏 */
+        header {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            padding: 20px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow);
+        }
+        
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo i {
+            margin-right: 10px;
+            color: var(--accent-color);
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 30px;
+        }
+        
+        .nav-links a {
+            color: var(--light-text);
+            text-decoration: none;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+        
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .mobile-menu {
+            display: none;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        
+        /* 英雄区域 */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('https://images.unsplash.com/photo-1511920170033-f8396924c348?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80') no-repeat center center/cover;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: var(--light-text);
+            margin-top: 70px;
+        }
+        
+        .hero-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            animation: fadeIn 1s ease-in;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            animation: fadeIn 1.5s ease-in;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--accent-color);
+            color: var(--text-color);
+            padding: 12px 30px;
+            border: none;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: var(--transition);
+            cursor: pointer;
+            animation: fadeIn 2s ease-in;
+        }
+        
+        .btn:hover {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+        }
+        
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--accent-color);
+            color: var(--text-color);
+        }
+        
+        /* 卡片区域 */
+        .section {
+            padding: 80px 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--primary-color);
+        }
+        
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        
+        .card {
+            background-color: var(--light-text);
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+        }
+        
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+        }
+        
+        .card-img {
+            height: 200px;
+            overflow: hidden;
+        }
+        
+        .card-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition);
+        }
+        
+        .card:hover .card-img img {
+            transform: scale(1.1);
+        }
+        
+        .card-content {
+            padding: 20px;
+        }
+        
+        .card-content h3 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .card-content p {
+            margin-bottom: 20px;
+        }
+        
+        /* 注意事项区域 */
+        .features {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+        }
+        
+        .features .section-title {
+            color: var(--light-text);
+        }
+        
+        .feature-list {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+        }
+        
+        .feature-icon {
+            font-size: 24px;
+            color: var(--accent-color);
+            margin-right: 20px;
+            margin-top: 5px;
+        }
+        
+        /* 联系区域 */
+        .contact {
+            background-color: var(--secondary-color);
+        }
+        
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+        
+        .contact-card {
+            background-color: var(--light-text);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .contact-icon {
+            font-size: 40px;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        .contact-card h3 {
+            margin-bottom: 15px;
+            color: var(--primary-color);
+        }
+        
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--light-text);
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: var(--shadow);
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: var(--transition);
+        }
+        
+        .form-control:focus {
+            border-color: var(--primary-color);
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(111, 78, 55, 0.2);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        /* 页脚 */
+        footer {
+            background-color: var(--primary-color);
+            color: var(--light-text);
+            padding: 50px 0 20px;
+            text-align: center;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            margin-bottom: 30px;
+        }
+        
+        .footer-links li {
+            margin: 0 9px;
+        }
+        
+        .footer-links a {
+            color: var(--light-text);
+            text-decoration: none;
+            transition: var(--transition);
+        }
+        
+        .footer-links a:hover {
+            color: var(--accent-color);
+        }
+        
+        .social-links {
+            margin-bottom: 30px;
+        }
+        
+        .social-links a {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background-color: rgba(255,255,255,0.1);
+            border-radius: 50%;
+            color: var(--light-text);
+            margin: 0 10px;
+            line-height: 40px;
+            transition: var(--transition);
+        }
+        
+        .social-links a:hover {
+            background-color: var(--accent-color);
+            color: var(--primary-color);
+            transform: translateY(-3px);
+        }
+        
+        .copyright {
+            font-size: 14px;
+            opacity: 0.8;
+        }
+        
+        /* 弹窗 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background-color: var(--light-text);
+            padding: 30px;
+            border-radius: 10px;
+            max-width: 500px;
+            width: 90%;
+            position: relative;
+            animation: modalFadeIn 0.3s ease;
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--primary-color);
+            transition: var(--transition);
+        }
+        
+        .close-modal:hover {
+            transform: rotate(90deg);
+            color: var(--accent-color);
+        }
+        
+        /* 动画 */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            
+            .mobile-menu {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section {
+                padding: 60px 0;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .btn {
+                padding: 10px 20px;
+            }
+            
+            .contact-card {
+                padding: 20px;
+            }
+            
+            .contact-form {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- 导航栏 -->
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <i class="fas fa-coffee"></i>
+                    <span>东菱咖啡机</span>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#home">首页</a></li>
+                    <li><a href="#products">产品</a></li>
+                    <li><a href="#features">使用指南</a></li>
+                    <li><a href="#contact">联系我们</a></li>
+                </ul>
+                <div class="mobile-menu">
+                    <i class="fas fa-bars"></i>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- 英雄区域 -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>品味生活的每一刻</h1>
+            <p>东菱咖啡机，为您带来专业级的咖啡体验，让每一天都从一杯完美的咖啡开始。</p>
+            <a href="#products" class="btn btn-primary">探索产品</a>
+            <a href="#contact" class="btn" id="consult-btn">立即咨询</a>
+        </div>
+    </section>
+
+    <!-- 产品卡片区域 -->
+    <section class="section" id="products">
+        <div class="container">
+            <h2 class="section-title">我们的产品系列</h2>
+            <div class="cards">
+                <div class="card">
+                    <div class="card-img">
+                        <img src="http://www.donlim.cn/uploads/goods_source/20220816101729eb.jpg" alt="东菱双核咖啡机">
+                    </div>
+                    <div class="card-content">
+                        <h3>东菱双核咖啡机</h3>
+                        <p>双核动力，香醇快意</p>
+                        <a href="http://www.donlim.cn/index.php?c=product&a=index&id=88" class="btn">了解更多</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img">
+                        <img src="http://www.donlim.cn/uploads/goods_source/20230817152459a7.jpg" alt="东菱冷萃咖啡机">
+                    </div>
+                    <div class="card-content">
+                        <h3>东菱冷萃咖啡机</h3>
+                        <p>一分钟新鲜冷翠，畅饮新鲜风味</p>
+                        <a href="http://www.donlim.cn/index.php?c=product&a=index&id=97" class="btn">了解更多</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-img">
+                        <img src="http://www.donlim.cn/uploads/goods_source/2020102918122611.jpg" alt="东菱美式全自动咖啡机">
+                    </div>
+                    <div class="card-content">
+                        <h3>东菱美式全自动咖啡机</h3>
+                        <p>一键操作，智能控制，为您带来专业咖啡店级别的咖啡体验。</p>
+                        <a href="http://www.donlim.cn/index.php?c=product&a=index&id=53" class="btn">了解更多</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 注意事项区域 -->
+    <section class="section features" id="features">
+        <div class="container">
+            <h2 class="section-title">使用注意事项</h2>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-plug"></i>
+                    </div>
+                    <div>
+                        <h3>使用前检查电源线</h3>
+                        <p>确保电源线完好无损，插头与插座接触良好，避免短路或漏电风险。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon" style="margin-left: -6px;margin-right: 14px;">
+                        <i class="fas fa-broom"></i>
+                    </div>
+                    <div>
+                        <h3>定期清洁水槽和咖啡机内部</h3>
+                        <p>建议每周至少清洁一次水槽，每月彻底清洁咖啡机内部，以保证咖啡品质和机器寿命。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-tint"></i>
+                    </div>
+                    <div>
+                        <h3>水质对咖啡味道的影响</h3>
+                        <p>使用过滤水或矿泉水可以显著提升咖啡口感，避免使用硬水或含杂质较多的水源。</p>
+                    </div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <i class="fas fa-exclamation-triangle"></i>
+                    </div>
+                    <div>
+                        <h3>避免超负荷运行</h3>
+                        <p>连续制作咖啡不宜超过10杯，如需大量制作，请让机器适当休息冷却。</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 联系区域 -->
+    <section class="section contact" id="contact">
+        <div class="container">
+            <h2 class="section-title">联系我们</h2>
+            <div class="contact-info">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-globe"></i>
+                    </div>
+                    <h3>官方网站</h3>
+                    <p><a href="http://www.donlim.cn" target="_blank">www.donlim.com</a></p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone-alt"></i>
+                    </div>
+                    <h3>客户服务电话</h3>
+                    <p>400-888-8888</p>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>电子邮箱</h3>
+                    <p>service@donlim.com</p>
+                </div>
+            </div>
+            
+            <div class="contact-form">
+                <h3 style="text-align: center; margin-bottom: 30px; color: var(--primary-color);">投诉建议</h3>
+                <form id="feedback-form">
+                    <div class="form-group">
+                        <label for="name">您的姓名</label>
+                        <input type="text" id="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">电子邮箱</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">联系电话</label>
+                        <input type="tel" id="phone" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">您的意见或建议</label>
+                        <textarea id="message" class="form-control" required></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width: 100%;">提交反馈</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- 页脚 -->
+    <footer>
+        <div class="container">
+            <ul class="footer-links">
+                <li><a href="#home">首页</a></li>
+                <li><a href="#products">产品</a></li>
+                <li><a href="#features">使用指南</a></li>
+                <li><a href="#contact">联系我们</a></li>
+                <li><a href="#">隐私政策</a></li>
+            </ul>
+            <div class="social-links">
+                <a href="#"><i class="fab fa-weixin"></i></a>
+                <a href="#"><i class="fab fa-weibo"></i></a>
+                <a href="#"><i class="fab fa-qq"></i></a>
+                <a href="#"><i class="fab fa-tiktok"></i></a>
+            </div>
+            <p class="copyright">© 2023 东菱电器有限公司 版权所有</p>
+        </div>
+    </footer>
+
+    <!-- 注意事项弹窗 -->
+    <div class="modal" id="notice-modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 style="color: var(--primary-color); margin-bottom: 20px;">重要注意事项</h2>
+            <ul style="list-style-position: inside; margin-bottom: 20px;">
+                <li style="margin-bottom: 10px;">使用前请仔细检查电源线和插座</li>
+                <li style="margin-bottom: 10px;">定期清洁水槽和咖啡机内部</li>
+                <li style="margin-bottom: 10px;">建议使用过滤水以获得最佳口感</li>
+                <li style="margin-bottom: 10px;">避免长时间连续使用</li>
+                <li style="margin-bottom: 10px;">请勿将机器浸泡在水中清洗</li>
+            </ul>
+            <button class="btn" style="display: block; margin: 0 auto;" id="confirm-notice">我已阅读并理解</button>
+        </div>
+    </div>
+
+    <script>
+        // 弹窗控制
+        document.addEventListener('DOMContentLoaded', function() {
+            // 显示注意事项弹窗
+            setTimeout(function() {
+                document.getElementById('notice-modal').style.display = 'flex';
+            }, 3000);
+            
+            // 关闭弹窗
+            document.querySelector('.close-modal').addEventListener('click', function() {
+                document.getElementById('notice-modal').style.display = 'none';
+            });
+            
+            document.getElementById('confirm-notice').addEventListener('click', function() {
+                document.getElementById('notice-modal').style.display = 'none';
+            });
+            
+            // 点击"立即咨询"按钮滚动到联系表单
+            document.getElementById('consult-btn').addEventListener('click', function(e) {
+                e.preventDefault();
+                document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
+            });
+            
+            // 表单提交
+            document.getElementById('feedback-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                alert('感谢您的反馈！我们会尽快与您联系。');
+                this.reset();
+            });
+            
+            // 移动菜单切换
+            document.querySelector('.mobile-menu').addEventListener('click', function() {
+                document.querySelector('.nav-links').classList.toggle('active');
+            });
+            
+            // 平滑滚动
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+        });
+        
+        // 滚动时导航栏效果
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
+            } else {
+                header.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
+            }
+        });
+    </script>
+</body>
+</html>

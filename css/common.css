@@ -1,0 +1,208 @@
+*{
+	margin: 0px;
+	padding: 0px;
+}
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+#container1 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+#container {
+    width: 350% !important;  /* 增大到视口的95%（原来是90%） */
+    aspect-ratio: 1;
+    margin: auto;
+	margin-left: 0;
+    transform: none;
+}
+.fixed-div {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: calc(100vh - 60px); /* 扣除底部导航栏高度 */
+    overflow: hidden;
+	margin-left: -4%;
+}
+#main{
+	flex: 1;
+}
+.nav-item div{
+	width: 2rem;
+	height: 2rem;
+	background-repeat: no-repeat;
+	background-size: cover;
+	border: none;
+}
+.n1 div{
+	background-image: url('../img/off.svg');
+}
+.n2 div{
+	background-image: url('../img/imgstart.svg');
+}
+.n3 div{
+	background-image: url('../img/mvstop.svg');
+}
+.n4 div{
+	background-image: url('../img/infoimg.svg');
+}
+.n5 div{
+	background-image: url('../img/attension.svg');
+}
+#main {
+    height: calc(100vh - 60px); /* 视口高度减去导航栏高度 */
+    overflow: auto; /* 允许内容滚动 */
+}
+.top-bar{
+	
+}
+.side-bar {
+    position: fixed;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1000;
+}
+#nav {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60px;
+    background-color: black;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    z-index: 1000;
+}
+.side-bar>div{
+	height: 2rem;
+	width: 2rem;
+	background-repeat: no-repeat;
+	background-size: cover;
+	margin-top: 1rem;
+	margin-bottom: 1.5rem;
+	opacity: 0.6;
+}
+.menu{
+	height: 2rem;
+	width: 2rem;
+	margin-top: 1rem;
+	margin-left: 1rem;
+	background-image: url('../img/menu.svg');
+	background-repeat: no-repeat;
+	background-size: cover;
+	opacity: 0.6;
+}
+.s1{
+	background-image: url('../img/start.svg');
+}
+.s2{
+	background-image: url('../img/stop.svg');
+}
+.s3{
+	background-image: url('../img/tuodong.svg');
+}
+.s4{
+	background-image: url('../img/stopchai.svg');
+}
+/* .object1 {
+	width: 70px;
+	height: 470px;
+} */
+.side-bar, #nav {
+    position: fixed;
+    z-index: 1000; /* 确保图标在最上层 */
+}
+
+#loader-container {
+	position: fixed;
+    text-align: center;
+	top: 40%;
+	right: 40%
+}
+
+.loader {
+    border: 8px solid #f3f3f3;
+    border-top: 8px solid #3498db;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin: 20px auto;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+p {
+    font-family: Arial, sans-serif;
+    color: #333;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.model-label {
+    position: absolute;
+    transform: translate(-50%, -100%);
+    pointer-events: none;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.label-line {
+    width: 2px;
+    height: 40px; /* 指示线长度 */
+    opacity: 0.8;
+    position: relative;
+}
+
+.label-pin {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 0;
+}
+
+.label-text {
+    padding: 6px 12px;
+    border-radius: 16px;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    white-space: nowrap;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    margin-top: -1px; /* 连接线与文字间距 */
+}
+
+@media (max-width: 768px) {
+    .label-text { font-size: 10px; }
+}
+
+[data-action] {
+    cursor: pointer;
+    transition: transform 0.3s;
+}
+
+[data-action]:active {
+    transform: scale(0.9);
+}
+
+.model-label {
+    pointer-events: auto; /* 允许标签交互 */
+}

@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+		<link href="css/common.css" rel="stylesheet" type="text/css" />
+		<script src="https://laozicloud-sdk.obs.cn-east-2.myhuaweicloud.com:443/h5/app.js" id="AMRT"></script>
+		<script src="https://laozicloud-sdk.obs.myhuaweicloud.com:443/libs/dat.gui.min.js"></script>
+		<script src="https://waibu-demo.obs.cn-east-2.myhuaweicloud.com:443/lib/message.min.js"></script>
+		<title></title>
+	</head>
+	<body>
+		<div id="container1">
+			<div id="loader-container">
+				<div class="loader"></div>
+				<p>Loading...</p>
+			</div>
+			<div id="main">
+			        <div class="top-bar"></div>
+			        <div class="fixed-div">
+			            <div id="container"></div> <!-- 3D模型将自动居中 -->
+			        </div>
+			    </div>
+			    
+			    <!-- 侧边栏按钮 -->
+			    <div class="side-bar">
+			        <div class="s1" onclick="chai()"></div>
+			        <div class="s2" onclick="stopchai()"></div>
+			        <div class="s3" onclick="tuodong()"></div>
+			        <div class="s4" onclick="stoptuo()"></div>
+			    </div>
+			</div>
+			<div>
+				<!-- 这个div只是为了让side-bar在剩余的空间居中，用space-between -->
+			</div>
+		</div>
+		<div id="nav">
+			<div class="nav-item n1" onclick="fuyuan()">
+				<div></div>
+			</div>
+			<div class="nav-item n2" onclick="donghua()">
+				<div></div>
+			</div>
+			<div class="nav-item n3" onclick="donghuast()"">
+				<div></div>
+			</div>
+			<div class=" nav-item n4" onclick="info()">
+				<div></div>
+			</div>
+			<div class="nav-item n5" onclick="attion()">
+				<div></div>
+			</div>
+		</div>
+		</div>
+	</body>
+	<script>
+		const param = {
+			appkey: 'oDynSaXKLAtv',
+			appsecret: 'ZqjxMn41sF93yEgbieQDUlRK8ILcoYP6'
+		}  //获取模型密钥
+		
+		const viewer = new AMRT.Viewer('container', /*容器dom或者dom对应的id*/ param)
+		
+		if (/iPhone|iPad/i.test(navigator.userAgent)) {
+		    viewer.textureQuality = 0.5;
+		}  //对于ios设备的加速
+		
+		window.addEventListener('resize', function() {
+		    if (viewer) {
+		        viewer.resize();
+		        const container = document.getElementById('container');
+		        const minDimension = Math.min(window.innerWidth, window.innerHeight - 60);
+		        // 增大尺寸系数从0.9调整为0.95
+		        const size = Math.min(minDimension * 0.95, 900); // 最大尺寸增加到900px
+		        container.style.width = `${size}px`;
+		        container.style.height = `${size}px`;
+		    }
+		});
+		// 在控制台检查是否超出视口
+		console.log(
+		    document.getElementById('container').getBoundingClientRect().left
+		);
+		
+		
+		// 初始化时触发一次
+		setTimeout(() => window.dispatchEvent(new Event('resize')), 0);  //3D容器自适应
+
+
+		viewer.addEventListener(AMRT.Event.MODEL_UPDATE, () => {
+			console.log('update')
+		})
+
+		// viewer.loadModel('1800498263045050368', {
+		// 	background: false ,//之前的背景不启用，这一步是必要的，如果没有这一步不显示背景将不起作用
+		// 	quality: 'medium',  // 降低初始加载质量
+		// 	progressive: true   ,// 启用渐进式加载
+		// })
+		viewer.sceneManager.backgroundVisible = false //不显示背景
+
+		// viewer.loadModel('1800498263045050368', {
+		// 	background: false ,//之前的背景不启用，这一步是必要的，如果没有这一步不显示背景将不起作用
+		// 	onLoad: function hideDiv() {
+		// 		document.getElementById("loader-container").style.display = "none";
+		// 	},
+		// 	// onProgress: pct => console.log('当前加载进度', pct),
+		// 	// onError: error => console.log('模型加载失败', error),
+		// 	// onMatLoad: () => console.log('材质加载完成'),
+		// 	// onAnimeLoad: () => console.log('动画加载完成'),
+			
+		// }) //加载模型的进度,只出现在控制台中，但是会出现undefined
+		
+		viewer.loadModel('1800498263045050368', {
+			background: false ,
+			quality: 'medium',  // 降低初始加载质量
+			progressive: true   ,// 启用渐进式加载
+			onProgress: pct => console.log('当前加载进度', pct),
+			onError: error => console.log('模型加载失败', error),
+			onLoad: function hideDiv() {
+				document.getElementById("loader-container").style.display = "none";
+		        // 标注豆仓
+		        viewer.hotSpotManager.addMarker({
+		            position: {x: -0.06357233611822322, y:  0.5793710929719967, z: 0.08338902000493052},  // 3D坐标（需根据模型调整）
+		            element: createLabelElement('豆仓', '#FF5722'),  // 自定义标签样式
+		            onClick: () => Qmsg.success('点击豆仓')  // 点击事件
+		                });
+		        
+		                // 标注水箱
+		        viewer.hotSpotManager.addMarker({
+		            position: {x: 0.1464924580463717, y: 0.3793710929719967, z: -0.22615221174773895},
+		            element: createLabelElement('水箱', '#2196F3'),
+		            persistent: true  // 始终显示，不随视角变化消失
+		                });
+		        },
+				})
+				
+		function createLabelElement(text, color) {
+		    const label = document.createElement('div');
+		    label.className = 'model-label';
+		    label.innerHTML = `
+		        <div class="label-text" style="background: ${color}">${text}</div>
+		        <div class="label-arrow" style="border-top-color: ${color}"></div>
+		    `;
+		    return label;
+		}
+
+		const model = viewer.loadModel('1800498263045050368')
+
+		function chai() {  //播放模型拆分动画
+				model.exploding.play({
+					time: 3000, //动画时长  默认3000
+					loop: 1, //循环次数
+					onComplete: () => {
+						console.log('onComplete');
+					}
+				})
+		}
+		
+		function stopchai() {model.exploding.stop()} //停止拆分动画播放
+		
+		function tuodong() {
+			viewer.operator.enabled = true //启用模型操作工具
+			viewer.operator.enableDrag = true //启用拖动功能
+		}
+		
+		function stoptuo() {
+			viewer.operator.enabled = false //启用模型操作工具
+			viewer.operator.enableDrag = false //启用拖动功能
+			console.log("ok!")
+		}
+		
+		function fuyuan() {viewer.operator.restore()}  //复原模型
+
+		function donghua() {model.animation.play()}  //模型动画开始播放
+
+		function donghuast() {model.animation.stop()}  //模型动画停止播放
+
+		function info() {
+			window.open("info.html")
+		}
+		
+		function attion() {
+			window.open("attion.html")
+		}
+	</script>
+
+</html>
